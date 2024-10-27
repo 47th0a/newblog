@@ -1,0 +1,221 @@
+<html>
+
+<head>
+  <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>记一次某单位系统的渗透测试 | 47th0a</title>
+<link rel="shortcut icon" href="https://blog.47th0a.com/favicon.ico?v=1730043146237">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://blog.47th0a.com/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="记一次某单位系统的渗透测试 | 47th0a - Atom Feed" href="https://blog.47th0a.com/atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="起因：
+某单位系统测试，不限制攻击手段，不过目录扫描，sql注入那些就不用试，各种waf就给拦得死死的。可以试试弱口令、逻辑漏洞等。
+讲一讲差点错过的逻辑漏洞。小白第一次写文章，轻喷。码要打全一点，被看出来就不好了。
+经过：
+开局一个门户网..." />
+    <meta name="keywords" content="实战,渗透测试,信息收集" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+    <style>
+      p {
+        margin-bottom: 1em !important;
+      }
+
+      .disclaimer {
+        border: 1px solid #ddd;
+        padding: 15px;
+        background-color: #f9f9f9;
+        border-radius: 5px;
+      }
+    </style>
+</head>
+
+<body>
+  <div class="main">
+    <div class="main-content">
+      <div class="site-header">
+  <h1 class="site-title">
+    47th0a
+  </h1>
+  <p class="site-description">
+    
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="https://www.47th0a.com" class="menu" target="_blank">
+          关于
+        </a>
+      
+    
+  </div>  
+  <div class="social-container" align="center">
+	<hr color=#f2f2f2 size=2>
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              记一次某单位系统的渗透测试
+            </h2>
+            <div class="post-info">
+              <span>
+                2022-04-02
+              </span>
+              <span>
+                2 min read
+              </span>
+              
+                <a href="https://blog.47th0a.com/tag/shi-zhan/" class="post-tag">
+                  # 实战
+                </a>
+                
+                <a href="https://blog.47th0a.com/tag/shen-tou-ce-shi/" class="post-tag">
+                  # 渗透测试
+                </a>
+                
+                <a href="https://blog.47th0a.com/tag/xin-xi-shou-ji/" class="post-tag">
+                  # 信息收集
+                </a>
+                
+            </div>
+            
+                <div class="post-content-wrapper">
+                  <div class="post-content">
+                    <h2 style="color:red;">免责声明：</h2>
+                    <div class="disclaimer">
+                      <p>本次测试过程完全在本地或授权环境中进行，仅供学习、参考与技术讨论使用。严禁将本文中描述的方法和技术用于任何非法途径。</p>
+                      <p>本文中提及的所有漏洞已提交并得到修复。读者如有进行类似测试或其他行为，应确保所有操作均在合法和授权的范围内进行。</p>
+                      <p>若读者因使用本文中的内容而进行任何危害网络安全的行为，后果自负，与原作者无关。</p>
+                      <p>本文为原创内容，未经授权，严禁转载、复制或引用。若需转载或引用，请联系原作者获取授权。</p>
+                    </div>
+                    <h3 id="起因">起因：</h3>
+<p>某单位系统测试，不限制攻击手段，不过目录扫描，sql注入那些就不用试，各种waf就给拦得死死的。可以试试弱口令、逻辑漏洞等。<br>
+讲一讲差点错过的逻辑漏洞。小白第一次写文章，轻喷。码要打全一点，被看出来就不好了。</p>
+<h3 id="经过">经过：</h3>
+<p>开局一个门户网站，什么都没有也没什么用，扫描子域名发现几个平台<br>
+<img src="https://blog.47th0a.com/post-images/1648781815712.png" alt="" loading="lazy"><br>
+发现OA平台<br>
+<img src="https://blog.47th0a.com/post-images/1648781611482.png" alt="" loading="lazy"><br>
+存在用户名遍历<br>
+<img src="https://blog.47th0a.com/post-images/1648910555671.png" alt="" loading="lazy"><br>
+尝试弱口令登录，试了几个常见的admin、admin888没什么用放弃<br>
+<img src="https://blog.47th0a.com/post-images/1648908693831.png" alt="" loading="lazy"><br>
+开始寻找其他漏洞点，发现一处JS接口泄露。简单看一下应该是<code>首次登陆重置密码</code>，直觉告诉我这里可能会出问题。<br>
+<img src="https://blog.47th0a.com/post-images/1648910626536.png" alt="" loading="lazy"><br>
+那就来测试下是否存在未校验的任意密码重置的逻辑漏洞，祭出神器burpsuite，开始构造包内容，抓包、改包、发包一顿造作。<br>
+<img src="https://blog.47th0a.com/post-images/1648910702869.png" alt="" loading="lazy"><br>
+不错不错，看到返回包内容<code>true</code>稳了，回到登录界面看看是否修改成功。不出所料果然没有校验是否首次登陆。进入后台看看什么样子。<br>
+<img src="https://blog.47th0a.com/post-images/1648909373152.png" alt="" loading="lazy"><br>
+登录后找到修改上传文件，<code>.jsp</code>加入上传白名单，传个马getshell。</p>
+<h3 id="结束">结束：</h3>
+<p>在逻辑漏洞中，任意用户密码重置最为常见，可能出现在新用户注册页面，也可能是用户登录后重置密码的页面，或者用户忘记密码时的密码找回页面。</p>
+<figure data-type="image" tabindex="1"><img src="https://blog.47th0a.com/post-images/1647606446930.jpg" alt="" loading="lazy"></figure>
+
+                  </div>
+                  <div class="toc-container">
+                    <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#%E8%B5%B7%E5%9B%A0">起因：</a></li>
+<li><a href="#%E7%BB%8F%E8%BF%87">经过：</a></li>
+<li><a href="#%E7%BB%93%E6%9D%9F">结束：</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+                  </div>
+                </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://blog.47th0a.com/post/ji-yi-ci-mou-ping-tai-js-jie-kou-wei-shou-quan-dao-jin-ru-hou-tai/">
+              <h3 class="post-title">
+                记一次某平台js接口未授权到进入后台
+              </h3>
+            </a>
+          </div>
+          
+
+            
+
+                            <div class="site-footer">
+  当目标达成的时候，痛苦就升华成了快乐
+</div>
+
+    </div>
+  </div>
+
+  <script>
+    hljs.initHighlightingOnLoad()
+
+    let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+    // This should probably be throttled.
+    // Especially because it triggers during smooth scrolling.
+    // https://lodash.com/docs/4.17.10#throttle
+    // You could do like...
+    // window.addEventListener("scroll", () => {
+    //    _.throttle(doThatStuff, 100);
+    // });
+    // Only not doing it here to keep this Pen dependency-free.
+
+    window.addEventListener("scroll", event => {
+      let fromTop = window.scrollY;
+
+      mainNavLinks.forEach((link, index) => {
+        let section = document.getElementById(decodeURI(link.hash).substring(1));
+        let nextSection = null
+        if (mainNavLinks[index + 1]) {
+          nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+        }
+        if (section.offsetTop <= fromTop) {
+          if (nextSection) {
+            if (nextSection.offsetTop > fromTop) {
+              link.classList.add("current");
+            } else {
+              link.classList.remove("current");
+            }
+          } else {
+            link.classList.add("current");
+          }
+        } else {
+          link.classList.remove("current");
+        }
+      });
+    });
+
+  </script>
+</body>
+
+</html>

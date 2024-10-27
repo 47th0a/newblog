@@ -1,0 +1,184 @@
+<html>
+
+<head>
+  <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>某厅级单位系统风险导致全省数万条重要数据泄漏 | 47th0a</title>
+<link rel="shortcut icon" href="https://blog.47th0a.com/favicon.ico?v=1730043146237">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://blog.47th0a.com/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="某厅级单位系统风险导致全省数万条重要数据泄漏 | 47th0a - Atom Feed" href="https://blog.47th0a.com/atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="RT
+已修复
+
+" />
+    <meta name="keywords" content="实战,渗透测试" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+    <style>
+      p {
+        margin-bottom: 1em !important;
+      }
+
+      .disclaimer {
+        border: 1px solid #ddd;
+        padding: 15px;
+        background-color: #f9f9f9;
+        border-radius: 5px;
+      }
+    </style>
+</head>
+
+<body>
+  <div class="main">
+    <div class="main-content">
+      <div class="site-header">
+  <h1 class="site-title">
+    47th0a
+  </h1>
+  <p class="site-description">
+    
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="https://www.47th0a.com" class="menu" target="_blank">
+          关于
+        </a>
+      
+    
+  </div>  
+  <div class="social-container" align="center">
+	<hr color=#f2f2f2 size=2>
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              某厅级单位系统风险导致全省数万条重要数据泄漏
+            </h2>
+            <div class="post-info">
+              <span>
+                2024-10-27
+              </span>
+              <span>
+                1 min read
+              </span>
+              
+                <a href="https://blog.47th0a.com/tag/shi-zhan/" class="post-tag">
+                  # 实战
+                </a>
+                
+                <a href="https://blog.47th0a.com/tag/shen-tou-ce-shi/" class="post-tag">
+                  # 渗透测试
+                </a>
+                
+            </div>
+            
+                <div class="post-content-wrapper">
+                  <div class="post-content">
+                    <h2 style="color:red;">免责声明：</h2>
+                    <div class="disclaimer">
+                      <p>本次测试过程完全在本地或授权环境中进行，仅供学习、参考与技术讨论使用。严禁将本文中描述的方法和技术用于任何非法途径。</p>
+                      <p>本文中提及的所有漏洞已提交并得到修复。读者如有进行类似测试或其他行为，应确保所有操作均在合法和授权的范围内进行。</p>
+                      <p>若读者因使用本文中的内容而进行任何危害网络安全的行为，后果自负，与原作者无关。</p>
+                      <p>本文为原创内容，未经授权，严禁转载、复制或引用。若需转载或引用，请联系原作者获取授权。</p>
+                    </div>
+                    <p>RT<br>
+已修复<br>
+<img src="https://blog.47th0a.com/post-images/1730042290314.jpg" alt="" loading="lazy"></p>
+
+                  </div>
+                  <div class="toc-container">
+                    
+                  </div>
+                </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://blog.47th0a.com/post/mou-zheng-wu-ping-tai-cun-zai-yue-quan-cha-kan-ta-ren-ban-jian-xin-xi/">
+              <h3 class="post-title">
+                某政务平台存在越权查看他人办件信息
+              </h3>
+            </a>
+          </div>
+          
+
+            
+
+                            <div class="site-footer">
+  当目标达成的时候，痛苦就升华成了快乐
+</div>
+
+    </div>
+  </div>
+
+  <script>
+    hljs.initHighlightingOnLoad()
+
+    let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+    // This should probably be throttled.
+    // Especially because it triggers during smooth scrolling.
+    // https://lodash.com/docs/4.17.10#throttle
+    // You could do like...
+    // window.addEventListener("scroll", () => {
+    //    _.throttle(doThatStuff, 100);
+    // });
+    // Only not doing it here to keep this Pen dependency-free.
+
+    window.addEventListener("scroll", event => {
+      let fromTop = window.scrollY;
+
+      mainNavLinks.forEach((link, index) => {
+        let section = document.getElementById(decodeURI(link.hash).substring(1));
+        let nextSection = null
+        if (mainNavLinks[index + 1]) {
+          nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+        }
+        if (section.offsetTop <= fromTop) {
+          if (nextSection) {
+            if (nextSection.offsetTop > fromTop) {
+              link.classList.add("current");
+            } else {
+              link.classList.remove("current");
+            }
+          } else {
+            link.classList.add("current");
+          }
+        } else {
+          link.classList.remove("current");
+        }
+      });
+    });
+
+  </script>
+</body>
+
+</html>

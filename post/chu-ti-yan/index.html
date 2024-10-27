@@ -1,0 +1,194 @@
+<html>
+
+<head>
+  <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>初体验 | 47th0a</title>
+<link rel="shortcut icon" href="https://blog.47th0a.com/favicon.ico?v=1730043146237">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://blog.47th0a.com/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="初体验 | 47th0a - Atom Feed" href="https://blog.47th0a.com/atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="今天无意间在群里看到一条链接，标题为“我店明日开业”点进链接发现是虚假活动，闲着无聊对这个站点进行了一波信息收集。
+使用dirmap进行目录扫描。不过都是一些无用的信息。
+在返回的时候被网站跳转的域名吸引去了眼球。xxxx.shandong..." />
+    <meta name="keywords" content="初体验,信息收集" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+    <style>
+      p {
+        margin-bottom: 1em !important;
+      }
+
+      .disclaimer {
+        border: 1px solid #ddd;
+        padding: 15px;
+        background-color: #f9f9f9;
+        border-radius: 5px;
+      }
+    </style>
+</head>
+
+<body>
+  <div class="main">
+    <div class="main-content">
+      <div class="site-header">
+  <h1 class="site-title">
+    47th0a
+  </h1>
+  <p class="site-description">
+    
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="https://www.47th0a.com" class="menu" target="_blank">
+          关于
+        </a>
+      
+    
+  </div>  
+  <div class="social-container" align="center">
+	<hr color=#f2f2f2 size=2>
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              初体验
+            </h2>
+            <div class="post-info">
+              <span>
+                2021-12-23
+              </span>
+              <span>
+                2 min read
+              </span>
+              
+                <a href="https://blog.47th0a.com/tag/chu-ti-yan/" class="post-tag">
+                  # 初体验
+                </a>
+                
+                <a href="https://blog.47th0a.com/tag/xin-xi-shou-ji/" class="post-tag">
+                  # 信息收集
+                </a>
+                
+            </div>
+            
+                <div class="post-content-wrapper">
+                  <div class="post-content">
+                    <h2 style="color:red;">免责声明：</h2>
+                    <div class="disclaimer">
+                      <p>本次测试过程完全在本地或授权环境中进行，仅供学习、参考与技术讨论使用。严禁将本文中描述的方法和技术用于任何非法途径。</p>
+                      <p>本文中提及的所有漏洞已提交并得到修复。读者如有进行类似测试或其他行为，应确保所有操作均在合法和授权的范围内进行。</p>
+                      <p>若读者因使用本文中的内容而进行任何危害网络安全的行为，后果自负，与原作者无关。</p>
+                      <p>本文为原创内容，未经授权，严禁转载、复制或引用。若需转载或引用，请联系原作者获取授权。</p>
+                    </div>
+                    <p>今天无意间在群里看到一条链接，标题为“我店明日开业”点进链接发现是虚假活动，闲着无聊对这个站点进行了一波信息收集。</p>
+<p>使用<a href="https://github.com/H4ckForJob/dirmap">dirmap</a>进行目录扫描。不过都是一些无用的信息。</p>
+<p>在返回的时候被网站跳转的域名吸引去了眼球。<code>xxxx.shandong.gov.cn</code> 这是用政务网站做重定向的吗，复制链接并访问。没错是通过这个做重定向的，顺手给反馈纠错。</p>
+<p>接着查了一下这个站点的<code>whois</code>发现一些有价值的信息，域名所有人以及邮箱如下图<br>
+<img src="https://user-images.githubusercontent.com/96301965/146773590-cb0d7f9f-97d4-4456-b3aa-1b40ad839e7c.png" alt="image" loading="lazy"></p>
+<p>反查看到同一人在不同的服务商注册的各种域名，或者是直接买到已经备案的域名。在列表里看到一个比较显眼认为比较有价值的域名，访问一下，跳转到另外的站点，同样是虚假活动。仔细看一下注册时间这一批域名的注册时间都在2021年11月20日左右。</p>
+<p>当时脑子就蒙了，这不是一站群吗，虽然不多，但也有十多个，放弃搜集了。</p>
+<p>在全球ping对一个主域名做了查询，发现套了cdn。在真实ip查询到是浙江温州的一处IP<code>43.xx.xx.106</code>，又对其他站点进行了批量扫描发现都套有cdn，不过功夫不负有心人查到了一个在阿里云数据中心的IP<code>139.xx.xx.239</code>。用nmap对这两个ip进行扫描发现浙江温州的IP开放了8888端口，使用过宝塔面板的都清楚这是宝塔面板的默认端口，可以访问但是不清楚安全入口，也懒得去扫描。</p>
+<figure data-type="image" tabindex="1"><img src="https://user-images.githubusercontent.com/96301965/146776687-dc84187e-fad7-4fc3-8d55-1a996c317ad1.png" alt="image" loading="lazy"></figure>
+<p>在nmap看到IP<code>43.xx.xx.106</code>Running：Actiontec embedded, Linux 这是一个嵌入式设备。在钟馗之眼看到了网络运营商<code>ChinaTelecom</code>以及坐标，具体在哪嘛，这肯定是不能发出来的咯。<br>
+<img src="https://user-images.githubusercontent.com/96301965/146777651-1793afd4-3b63-49f3-b619-bd3750c4faef.png" alt="image" loading="lazy"></p>
+<p>体验到这里就结束了，以为会有些什么不一样的信息，不过这也算是一个小小的实战了。</p>
+<details><summary>彩蛋</summary><br>
+<p>在页面点击关闭会跳转到另外的小说站点，不过还没有深入探究。</p>
+</details>
+                  </div>
+                  <div class="toc-container">
+                    
+                  </div>
+                </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://blog.47th0a.com/post/zhong-hua-ren-min-gong-he-guo-wang-luo-an-quan-fa/">
+              <h3 class="post-title">
+                中华人民共和国网络安全法
+              </h3>
+            </a>
+          </div>
+          
+
+            
+
+                            <div class="site-footer">
+  当目标达成的时候，痛苦就升华成了快乐
+</div>
+
+    </div>
+  </div>
+
+  <script>
+    hljs.initHighlightingOnLoad()
+
+    let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+    // This should probably be throttled.
+    // Especially because it triggers during smooth scrolling.
+    // https://lodash.com/docs/4.17.10#throttle
+    // You could do like...
+    // window.addEventListener("scroll", () => {
+    //    _.throttle(doThatStuff, 100);
+    // });
+    // Only not doing it here to keep this Pen dependency-free.
+
+    window.addEventListener("scroll", event => {
+      let fromTop = window.scrollY;
+
+      mainNavLinks.forEach((link, index) => {
+        let section = document.getElementById(decodeURI(link.hash).substring(1));
+        let nextSection = null
+        if (mainNavLinks[index + 1]) {
+          nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+        }
+        if (section.offsetTop <= fromTop) {
+          if (nextSection) {
+            if (nextSection.offsetTop > fromTop) {
+              link.classList.add("current");
+            } else {
+              link.classList.remove("current");
+            }
+          } else {
+            link.classList.add("current");
+          }
+        } else {
+          link.classList.remove("current");
+        }
+      });
+    });
+
+  </script>
+</body>
+
+</html>

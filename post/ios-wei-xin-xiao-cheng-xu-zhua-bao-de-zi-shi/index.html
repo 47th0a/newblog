@@ -1,0 +1,231 @@
+<html>
+
+<head>
+  <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>iOS微信小程序抓包的姿势 | 47th0a</title>
+<link rel="shortcut icon" href="https://blog.47th0a.com/favicon.ico?v=1730043146237">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://blog.47th0a.com/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="iOS微信小程序抓包的姿势 | 47th0a - Atom Feed" href="https://blog.47th0a.com/atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="准备
+
+一台 iOS 版本11.0+的设备
+一台装有 BurpSuite 和爱思助手的 Windows 设备
+一双手
+
+开始
+打开 BurpSuite
+在Proxy模块下Options选项中添加监听代理
+
+安装旧版本微信
+手机用数据线连接至..." />
+    <meta name="keywords" content="BurpSuite,奇技淫巧" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+    <style>
+      p {
+        margin-bottom: 1em !important;
+      }
+
+      .disclaimer {
+        border: 1px solid #ddd;
+        padding: 15px;
+        background-color: #f9f9f9;
+        border-radius: 5px;
+      }
+    </style>
+</head>
+
+<body>
+  <div class="main">
+    <div class="main-content">
+      <div class="site-header">
+  <h1 class="site-title">
+    47th0a
+  </h1>
+  <p class="site-description">
+    
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="https://www.47th0a.com" class="menu" target="_blank">
+          关于
+        </a>
+      
+    
+  </div>  
+  <div class="social-container" align="center">
+	<hr color=#f2f2f2 size=2>
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              iOS微信小程序抓包的姿势
+            </h2>
+            <div class="post-info">
+              <span>
+                2022-04-28
+              </span>
+              <span>
+                1 min read
+              </span>
+              
+                <a href="https://blog.47th0a.com/tag/burpsuite/" class="post-tag">
+                  # BurpSuite
+                </a>
+                
+                <a href="https://blog.47th0a.com/tag/qi-ji-yin-qiao/" class="post-tag">
+                  # 奇技淫巧
+                </a>
+                
+            </div>
+            
+                <div class="post-content-wrapper">
+                  <div class="post-content">
+                    <h2 style="color:red;">免责声明：</h2>
+                    <div class="disclaimer">
+                      <p>本次测试过程完全在本地或授权环境中进行，仅供学习、参考与技术讨论使用。严禁将本文中描述的方法和技术用于任何非法途径。</p>
+                      <p>本文中提及的所有漏洞已提交并得到修复。读者如有进行类似测试或其他行为，应确保所有操作均在合法和授权的范围内进行。</p>
+                      <p>若读者因使用本文中的内容而进行任何危害网络安全的行为，后果自负，与原作者无关。</p>
+                      <p>本文为原创内容，未经授权，严禁转载、复制或引用。若需转载或引用，请联系原作者获取授权。</p>
+                    </div>
+                    <h3 id="准备">准备</h3>
+<ul>
+<li>一台 iOS 版本11.0+的设备</li>
+<li>一台装有 BurpSuite 和爱思助手的 Windows 设备</li>
+<li><s>一双手</s></li>
+</ul>
+<h3 id="开始">开始</h3>
+<h4 id="打开-burpsuite">打开 BurpSuite</h4>
+<p>在<code>Proxy</code>模块下<code>Options</code>选项中添加监听代理<br>
+<img src="https://blog.47th0a.com/post-images/1651111981996.png" alt="" loading="lazy"></p>
+<h4 id="安装旧版本微信">安装旧版本微信</h4>
+<p>手机用数据线连接至电脑，打开爱思助手、搜索微信、找到<code>8.0.10</code>版本点击下载，完成后安装到手机。<br>
+<img src="https://blog.47th0a.com/post-images/1651112001060.png" alt="" loading="lazy"><br>
+<img src="https://blog.47th0a.com/post-images/1651112193198.png" alt="" loading="lazy"></p>
+<h4 id="设置wifi代理">设置WiFi代理</h4>
+<p>打开设置、无线局域网、点击已连接WiFi后的<code>蓝色圈圈</code>、配置HTTP代理，并填写BurpSuite中设置的IP和端口。<br>
+<img src="https://blog.47th0a.com/post-images/1651112009182.PNG" alt="" loading="lazy"></p>
+<h4 id="添加证书">添加证书</h4>
+<p>使用Safari打开<code>IP:端口</code>、点击右上方的<code>CA Certificate</code>、保存到手机并安装，安装后需要在设置-通用-关于本机-证书信任设置中打开<br>
+<img src="https://blog.47th0a.com/post-images/1651112121204.PNG" alt="" loading="lazy"></p>
+<h4 id="测试一下">测试一下</h4>
+<figure data-type="image" tabindex="1"><img src="https://blog.47th0a.com/post-images/1651112131291.PNG" alt="" loading="lazy"></figure>
+
+                  </div>
+                  <div class="toc-container">
+                    <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#%E5%87%86%E5%A4%87">准备</a></li>
+<li><a href="#%E5%BC%80%E5%A7%8B">开始</a>
+<ul>
+<li><a href="#%E6%89%93%E5%BC%80-burpsuite">打开 BurpSuite</a></li>
+<li><a href="#%E5%AE%89%E8%A3%85%E6%97%A7%E7%89%88%E6%9C%AC%E5%BE%AE%E4%BF%A1">安装旧版本微信</a></li>
+<li><a href="#%E8%AE%BE%E7%BD%AEwifi%E4%BB%A3%E7%90%86">设置WiFi代理</a></li>
+<li><a href="#%E6%B7%BB%E5%8A%A0%E8%AF%81%E4%B9%A6">添加证书</a></li>
+<li><a href="#%E6%B5%8B%E8%AF%95%E4%B8%80%E4%B8%8B">测试一下</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+                  </div>
+                </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://blog.47th0a.com/post/ji-yi-ci-mou-dan-wei-xi-tong-de-shen-tou-ce-shi/">
+              <h3 class="post-title">
+                记一次某单位系统的渗透测试
+              </h3>
+            </a>
+          </div>
+          
+
+            
+
+                            <div class="site-footer">
+  当目标达成的时候，痛苦就升华成了快乐
+</div>
+
+    </div>
+  </div>
+
+  <script>
+    hljs.initHighlightingOnLoad()
+
+    let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+    // This should probably be throttled.
+    // Especially because it triggers during smooth scrolling.
+    // https://lodash.com/docs/4.17.10#throttle
+    // You could do like...
+    // window.addEventListener("scroll", () => {
+    //    _.throttle(doThatStuff, 100);
+    // });
+    // Only not doing it here to keep this Pen dependency-free.
+
+    window.addEventListener("scroll", event => {
+      let fromTop = window.scrollY;
+
+      mainNavLinks.forEach((link, index) => {
+        let section = document.getElementById(decodeURI(link.hash).substring(1));
+        let nextSection = null
+        if (mainNavLinks[index + 1]) {
+          nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+        }
+        if (section.offsetTop <= fromTop) {
+          if (nextSection) {
+            if (nextSection.offsetTop > fromTop) {
+              link.classList.add("current");
+            } else {
+              link.classList.remove("current");
+            }
+          } else {
+            link.classList.add("current");
+          }
+        } else {
+          link.classList.remove("current");
+        }
+      });
+    });
+
+  </script>
+</body>
+
+</html>
